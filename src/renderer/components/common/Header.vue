@@ -3,7 +3,8 @@
     <div class="header">
       <div class="time">
         <span class="clock"></span>
-        {{$store.state.Counter.time}}秒后退出系统
+        {{timerEnd?$store.state.Counter.time:getTime}}
+        秒后退出系统
         <span class="clock_font">&nbsp;</span>
       </div>
       <header>
@@ -22,14 +23,27 @@
  <script>
 export default {
   data() {
-    return {};
+    return {
+      timerEnd:false,
+      getTime:this.$store.state.Counter.time
+    };
   },
   mounted() {
     this.timer();
   },
+  computed:{
+  },
   methods: {
     timer() {
-      console.log(this.$store.state.Counter.time);
+     var inte= setInterval(()=>{
+       this.getTime--
+       if(this.getTime===0){
+         this.timerEnd = true
+         this.$store.commit('RESER_TIMER')
+         clearInterval(inte)
+         this.$router.push('login')
+       }
+     },200)
     }
   }
 };
