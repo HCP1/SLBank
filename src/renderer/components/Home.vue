@@ -13,6 +13,7 @@ export default {
   },
   methods: {
     toLogin(){
+      // this.$store.commit('RESER_TIMER') 这是调用vuex的方法
       this.$router.push('login')
     }
   }

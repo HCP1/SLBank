@@ -1,30 +1,22 @@
 const state = {
-  main: 0,
+  test: 0, //样例，后面删了它
   time:30,
 }
 
 const mutations = {
-  DECREMENT_MAIN_COUNTER (state) {
-    state.main--
-  },
-  INCREMENT_MAIN_COUNTER (state,pay) {
-    state.main++
+  INCREMENT_MAIN_COUNTER (state,pay) { //样例，后面删了它
+    state.test++
   },
   RESER_TIMER(state){
+    console.log(11111)
     state.time = 30
   }
 }
 
 const actions = {
-  someAsyncTask ({ commit }) {
-    console.log(111)
-    // do something async
+  someAsyncTask ({ commit }) { //样例，后面删了它
     commit('INCREMENT_MAIN_COUNTER')
   },
-  setTimer({ commit }){
-    console.log(111)
-    commit('RESER_TIMER')
-  }
 }
 
 export default {
