@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <div class="header">
-      <div class="time" v-show="isShowtimer">
+      <div class="time" v-show="isShowtimer&&routerName !== 'home'">
         <span class="clock"></span>
         {{time}}
         秒后退出系统
@@ -24,31 +24,26 @@
 
  <script>
 export default {
+  props:{clickScreen:Boolean},
   data() {
     return {
      isShowtimer:false,//时间是否需要显示
+     routerName:'home',
      time:30, //固定的，就不需要vuex了
      setTimer:null,// 定时器
     };
   },
-  mounted() {
-  },
   watch: {
-    $route: {
-      handler(newpath, oldpath) { //这里是监听路由，来判断是否显示定时器
-        if(newpath.name=='home'){
-          this.isShowtimer = false
-          this.time=30 //回到首页初始化数据
-          clearInterval(this.setTimer);//回到首页初始化数据
-        }else{
-          this.isShowtimer = true
-          this.timer();
-        }
-      },
-      deep:true
+    $route(newpath, oldpath){
+      this.routerName = newpath.name
+    },
+    clickScreen(n,o){
+      this.isShowtimer = true
+      this.time = 30
+      clearInterval(this.setTimer);
+      this.timer()
     }
   },
-  computed: {},
   methods: {
     timer() {
       this.setTimer = setInterval(() => {
@@ -56,10 +51,9 @@ export default {
         if (this.time === 0) {
           this.time = 30
           clearInterval(this.setTimer);
-          // this.$router.push("/"); //如果你想保留上一个页面信息就用push，不想保留就用repalce
           this.$router.replace("/");
         }
-      }, 1000);
+      }, 200);
     }
   }
 };

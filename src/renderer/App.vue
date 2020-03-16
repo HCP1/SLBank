@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <Header/>
+  <div id="app" @click="setTimer">
+    <Header :clickScreen="isClick"/>
     <router-view></router-view>
   </div>
 </template>
@@ -14,9 +14,13 @@ export default {
   },
   data(){
     return{
+      isClick:false
     }
   },
   methods: {
+    setTimer(){
+      this.isClick = !this.isClick
+    }
   },
 };
 </script>
