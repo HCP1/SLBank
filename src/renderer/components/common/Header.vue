@@ -24,7 +24,7 @@
 
  <script>
 export default {
-  props:{clickScreen:Boolean},
+  props:{clickScreen:Boolean},//接收APP setTimer方法点击事件传过来的参数
   data() {
     return {
      isShowtimer:false,//时间是否需要显示
@@ -37,7 +37,7 @@ export default {
     $route(newpath, oldpath){
       this.routerName = newpath.name
     },
-    clickScreen(n,o){
+    clickScreen(n,o){//监听APP setTimer方法点击事件传过来的参数 是否改变
       this.isShowtimer = true
       this.time = 30
       clearInterval(this.setTimer);
@@ -53,7 +53,7 @@ export default {
           clearInterval(this.setTimer);
           this.$router.replace("/");
         }
-      }, 200);
+      }, 1000);
     }
   }
 };
