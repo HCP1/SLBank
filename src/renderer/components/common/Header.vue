@@ -56,7 +56,8 @@ export default {
         if (this.time === 0) {
           this.time = 30
           clearInterval(this.setTimer);
-          this.$router.push("/");
+          // this.$router.push("/"); //如果你想保留上一个页面信息就用push，不想保留就用repalce
+          this.$router.replace("/");
         }
       }, 1000);
     }
