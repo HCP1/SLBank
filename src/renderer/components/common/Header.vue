@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <div class="header">
-      <div class="time" v-show="isShowtimer&&routerName !== 'home'">
+      <div class="time" v-show="routerName !== 'home'">
         <span class="clock"></span>
         {{time}}
         秒后退出系统
@@ -27,7 +27,6 @@ export default {
   props:{clickScreen:Boolean},//接收APP setTimer方法点击事件传过来的参数
   data() {
     return {
-     isShowtimer:false,//时间是否需要显示
      routerName:'home',
      time:30, //固定的，就不需要vuex了
      setTimer:null,// 定时器
@@ -38,7 +37,6 @@ export default {
       this.routerName = newpath.name
     },
     clickScreen(n,o){//监听APP setTimer方法点击事件传过来的参数 是否改变
-      this.isShowtimer = true
       this.time = 30
       clearInterval(this.setTimer);
       this.timer()
