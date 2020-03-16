@@ -38,8 +38,8 @@ export default {
       handler(newpath, oldpath) { //这里是监听路由，来判断是否显示定时器
         if(newpath.name=='home'){
           this.isShowtimer = false
-          this.time=30
-          clearInterval(this.setTimer);
+          this.time=30 //回到首页初始化数据
+          clearInterval(this.setTimer);//回到首页初始化数据
         }else{
           this.isShowtimer = true
           this.timer();
