@@ -29,7 +29,7 @@ export default {
     return {
      routerName:'home',
      time:30, //固定的，就不需要vuex了
-     setTimer:null,// 定时器
+     myTimer:null,// 定时器
     };
   },
   watch: {
@@ -38,17 +38,17 @@ export default {
     },
     clickScreen(n,o){//监听APP setTimer方法点击事件传过来的参数 是否改变
       this.time = 30
-      clearInterval(this.setTimer);
+      clearInterval(this.myTimer);
       this.timer()
     }
   },
   methods: {
     timer() {
-      this.setTimer = setInterval(() => {
+      this.myTimer = setInterval(() => {
         this.time--;
         if (this.time === 0) {
           this.time = 30
-          clearInterval(this.setTimer);
+          clearInterval(this.myTimer);
           this.$router.replace("/");
         }
       }, 1000);
