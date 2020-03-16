@@ -1,11 +1,13 @@
 <template>
   <div id="wrapper">
     <div class="header">
-      <div class="time">
+      <div class="time" v-show="isShowtimer">
         <span class="clock"></span>
-        {{timerEnd?$store.state.Counter.time:getTime}}
+        {{time}}
         秒后退出系统
-        <span class="clock_font">&nbsp;</span>
+        <span
+          class="clock_font"
+        >&nbsp;</span>
       </div>
       <header>
         <img class="logo" src="static/img/logo_04.png" alt />
@@ -24,26 +26,39 @@
 export default {
   data() {
     return {
-      timerEnd:false,
-      getTime:this.$store.state.Counter.time
+     isShowtimer:false,//时间是否需要显示
+     time:30, //固定的，就不需要vuex了
+     setTimer:null,// 定时器
     };
   },
   mounted() {
-    this.timer();
   },
-  computed:{
+  watch: {
+    $route: {
+      handler(newpath, oldpath) { //这里是监听路由，来判断是否显示定时器
+        if(newpath.name=='home'){
+          this.isShowtimer = false
+          this.time=30
+          clearInterval(this.setTimer);
+        }else{
+          this.isShowtimer = true
+          this.timer();
+        }
+      },
+      deep:true
+    }
   },
+  computed: {},
   methods: {
     timer() {
-     var inte= setInterval(()=>{
-       this.getTime--
-       if(this.getTime===0){
-         this.timerEnd = true
-         this.$store.commit('RESER_TIMER')
-         clearInterval(inte)
-         this.$router.push('login')
-       }
-     },200)
+      this.setTimer = setInterval(() => {
+        this.time--;
+        if (this.time === 0) {
+          this.time = 30
+          clearInterval(this.setTimer);
+          this.$router.push("/");
+        }
+      }, 1000);
     }
   }
 };
